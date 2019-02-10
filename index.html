@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Spaghetti Code Music Player</title>
+  <link rel="icon" href="icon.ico">
+  <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+  <script>
+    // movue move effect for the filter
+        window.onload = function() {
+          this.addEventListener('mousemove', function(e) {
+          var x = e.clientX;
+          var y = e.clientY;
+          var width = window.innerWidth;
+          //adding height
+          var height = window.innerHeight;
+          //console.log(width);
+          var widthnor = (x/width); // 0-1 range
+          var heightnor = (y/height);
+          // console.log(widthnor*1500);
+          // console.log(heightnor*50);
+          //console.log(x, y);
+          if (playing == 1) {
+            //oscillator.frequency.value = x;
+            filter.frequency.value = widthnor*1500;
+            filter.Q.value = heightnor*50; 
+          }
+          });
+        }
+        </script>  
+
+</head>
+<body>
+    <div id="container">
+<h1>Spaghetti Code Music Player</h1>
+<div class="buttonLeftcontainer">
+<button type="button"  id="button1" class="buttonLeft">Play</button>
+<br />
+<br />
+<button type="button"  id="button3" class="buttonLeft">Delay</button>
+<br />
+<br />
+<button type="button"  id="button5" class="buttonLeft">Filter</button>
+</div>
+<div class="buttonRightcontainer">
+<button type="button"  id="button2" class="buttonRight">Stop</button>
+<br />
+<br />
+<button type="button"  id="button4" class="buttonRight">Delay Stop</button>
+<br />
+<br />
+<button type="button"  id="button6" class="buttonRight">Filter Stop</button>
+</div>
+<br />
+<p>Volume: </p>
+<div class="slidecontainer">
+  <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+</div>
+</div>
+
+<script>
+
+
+    var AudioContext = window.AudioContext || window.webkitAudioContext;    
+    var slider = document.getElementById("myRange");
+    var volume;
+    var context, player, delay, delayAmount, filter;
+    var playing = 0;
+    document.querySelector("#button1").addEventListener('click', function() {
+    context = new AudioContext();
+    
+    // create a sound input node from an audio sample
+    player = context.createBufferSource();
+    player.loop = true;
+
+    // create a delay effect node
+    delay = context.createDelay();
+    delay.delayTime.value = 0.5; // lenght of the delay
+
+    // create a gain effect node
+    delayAmount = context.createGain();
+    // delayAmount.gain.value = 0.5; // amount of the effect
+    volume = context.createGain();
+
+    // create filter node
+    filter = context.createBiquadFilter();
+    filter.type = "highpass";
+    filter.frequency.value = 0;
+    filter.Q.value = 0
+
+    // play the sound
+    loadSound("jazzkos.mp3");
+    
+    // connect the different nodes
+    player.connect(volume);    
+    volume.connect(context.destination);
+    playing = 1;
+    volume.gain.value = 0.5;
+  });
+
+  slider.oninput = function() {
+  var normalizeNum = this.value / 100;
+  volume.gain.value = normalizeNum; // mapping the effect
+  // output.innerHTML = this.value;
+  console.log(normalizeNum);
+  }
+
+  document.querySelector("#button2").addEventListener('click', function() {
+    player.stop();
+    playing = 0;
+  });
+
+  document.querySelector("#button3").addEventListener('click', function() {
+    player.connect(delay);
+    delay.connect(delayAmount);
+    delayAmount.connect(volume);
+    volume.connect(context.destination);
+  });
+
+  document.querySelector("#button4").addEventListener('click', function() {
+    player.disconnect(delay);
+    delay.disconnect(delayAmount);
+    delayAmount.disconnect(context.destination);
+  });
+
+  document.querySelector("#button5").addEventListener('click', function() {
+    player.connect(filter);
+    filter.connect(delayAmount);
+    delayAmount.connect(volume)
+    volume.connect(context.destination);
+  });
+
+  document.querySelector("#button6").addEventListener('click', function() {
+    player.disconnect(filter);
+    filter.disconnect(delayAmount);
+    delayAmount.disconnect(context.destination);
+  });
+
+// Method 1 
+
+  function loadSound(soundfile) {
+  var request = new XMLHttpRequest();
+  request.open('GET', soundfile, true);
+  request.responseType = 'arraybuffer';
+
+  // Decode asynchronously
+  request.onload = function() {
+    context.decodeAudioData(request.response, function(buffer) {
+      player.buffer = buffer;
+      player.start();
+    }, onError);
+  }
+  request.send();
+  
+}
+
+function onError(){
+  console.log("The file could not be loaded");
+}
+  
+</script>
+
+
+</body>
+</html>
