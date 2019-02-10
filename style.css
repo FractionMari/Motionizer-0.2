@@ -17,12 +17,12 @@
   }
 
   h1 {
-    font-size: 25px;
+    font-size: 200%;
     text-align: center;
   }
 
   p {
-    font-size: 20px;
+    font-size: 180%;
     text-align: center;
   }
 
@@ -32,8 +32,9 @@
     width:100%;
     max-width:300px;
     margin: 0 auto;
-    height:20%;
-    font-size:20px;
+    /* height: 100%;
+    max-height: 50px; */
+    font-size: 200%;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
     text-align: center;
     border: 5px rgb(126, 13, 69) solid;
@@ -47,8 +48,9 @@
     width:100%;
     max-width:300px;
     margin: 0 auto;
-    height:20%;
-    font-size:20px;
+    /* height: 100%;
+    max-height: 50px; */
+    font-size: 200%;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
     text-align: center;
     border: 5px rgb(126, 13, 69) solid;
@@ -61,7 +63,7 @@
     float: left;
     width: 40%;
     max-width:350px;
-    height: auto;
+    /* height: auto; */
     /* background: rgb(68, 7, 38); */
     padding: 20px;
     border: 10px rgb(0, 0, 0) solid;
@@ -103,7 +105,7 @@
     -webkit-appearance: none;  /* Override default CSS styles */
     appearance: none;
     width: 100%; 
-    height: 25px; 
+    height: 35px; 
     background: rgba(69, 60, 151, 0.384); 
     outline: none; 
     opacity: 0.7; 
@@ -122,15 +124,15 @@
   .slider::-webkit-slider-thumb {
     -webkit-appearance: none; /* Override default look */
     appearance: none;
-    width: 25px; /* Set a specific slider handle width */
-    height: 25px; /* Slider handle height */
+    width: 35px; /* Set a specific slider handle width */
+    height: 35px; /* Slider handle height */
     background: rgb(25, 94, 27); /* Green background */
     cursor: pointer; /* Cursor on hover */
   }
   
   .slider::-moz-range-thumb {
-    width: 25px; /* Set a specific slider handle width */
-    height: 25px; /* Slider handle height */
+    width: 35px; /* Set a specific slider handle width */
+    height: 35px; /* Slider handle height */
     background: #4CAF50; /* Green background */
     cursor: pointer; /* Cursor on hover */
   }
