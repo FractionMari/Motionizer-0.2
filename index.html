@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>Spaghetti Code Music Player</title>
-  <link rel="icon" href="icon.ico">
+  <link rel="icon" href="icon3.ico">
   <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
   <script>
     // movue move effect for the filter
@@ -33,7 +33,27 @@
 <body>
     <div id="container">
 <h1>Spaghetti Code Music Player</h1>
-<div class="buttonLeftcontainer">
+
+<div class="slidecontainer"> 
+  <input type="range" min="1" max="100" value="50" class="slider" id="myRange"> 
+
+</div>
+  
+    <table style="width:100%" id="table">
+        <tr>
+          <th><button type="button"  id="button1" class="buttonLeft">Play</button></th>
+          <th><button type="button"  id="button2" class="buttonRight">Stop</button></th>
+        </tr>
+        <tr>
+          <th><button type="button"  id="button3" class="buttonLeft">Delay</button></th> 
+          <th><button type="button"  id="button4" class="buttonRight">Delay Stop</button></th>
+        </tr>
+        <tr>
+          <th><button type="button"  id="button5ß" class="buttonLeft">Filter</button></th>
+          <th><button type="button"  id="button6" class="buttonRight">Filter Stop</button></th>
+          </tr>
+      </table>
+<!-- <div class="buttonLeftcontainer">
 <button type="button"  id="button1" class="buttonLeft">Play</button>
 <br />
 <br />
@@ -42,6 +62,8 @@
 <br />
 <button type="button"  id="button5" class="buttonLeft">Filter</button>
 </div>
+
+
 <div class="buttonRightcontainer">
 <button type="button"  id="button2" class="buttonRight">Stop</button>
 <br />
@@ -50,13 +72,8 @@
 <br />
 <br />
 <button type="button"  id="button6" class="buttonRight">Filter Stop</button>
-</div>
-<br />
-<p>Volume: </p>
-<div class="slidecontainer">
-  <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-</div>
-</div>
+</div> -->
+
 
 <script>
 
