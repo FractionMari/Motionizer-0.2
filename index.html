@@ -33,27 +33,7 @@
 <body>
     <div id="container">
 <h1>Spaghetti Code Music Player</h1>
-
-<div class="slidecontainer"> 
-  <input type="range" min="1" max="100" value="50" class="slider" id="myRange"> 
-
-</div>
-  
-    <table style="width:100%" id="table">
-        <tr>
-          <th><button type="button"  id="button1" class="buttonLeft">Play</button></th>
-          <th><button type="button"  id="button2" class="buttonRight">Stop</button></th>
-        </tr>
-        <tr>
-          <th><button type="button"  id="button3" class="buttonLeft">Delay</button></th> 
-          <th><button type="button"  id="button4" class="buttonRight">Delay Stop</button></th>
-        </tr>
-        <tr>
-          <th><button type="button"  id="button5ß" class="buttonLeft">Filter</button></th>
-          <th><button type="button"  id="button6" class="buttonRight">Filter Stop</button></th>
-          </tr>
-      </table>
-<!-- <div class="buttonLeftcontainer">
+<div class="buttonLeftcontainer">
 <button type="button"  id="button1" class="buttonLeft">Play</button>
 <br />
 <br />
@@ -62,8 +42,6 @@
 <br />
 <button type="button"  id="button5" class="buttonLeft">Filter</button>
 </div>
-
-
 <div class="buttonRightcontainer">
 <button type="button"  id="button2" class="buttonRight">Stop</button>
 <br />
@@ -72,12 +50,15 @@
 <br />
 <br />
 <button type="button"  id="button6" class="buttonRight">Filter Stop</button>
-</div> -->
-
+</div>
+<br />
+<!-- <p>Volume: </p> -->
+<div class="slidecontainer">
+  <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+</div>
+</div>
 
 <script>
-
-
     var AudioContext = window.AudioContext || window.webkitAudioContext;    
     var slider = document.getElementById("myRange");
     var volume;
@@ -89,22 +70,18 @@
     // create a sound input node from an audio sample
     player = context.createBufferSource();
     player.loop = true;
-
     // create a delay effect node
     delay = context.createDelay();
     delay.delayTime.value = 0.5; // lenght of the delay
-
     // create a gain effect node
     delayAmount = context.createGain();
     // delayAmount.gain.value = 0.5; // amount of the effect
     volume = context.createGain();
-
     // create filter node
     filter = context.createBiquadFilter();
     filter.type = "highpass";
     filter.frequency.value = 0;
     filter.Q.value = 0
-
     // play the sound
     loadSound("jazzkos.mp3");
     
@@ -114,52 +91,43 @@
     playing = 1;
     volume.gain.value = 0.5;
   });
-
   slider.oninput = function() {
   var normalizeNum = this.value / 100;
   volume.gain.value = normalizeNum; // mapping the effect
   // output.innerHTML = this.value;
   console.log(normalizeNum);
   }
-
   document.querySelector("#button2").addEventListener('click', function() {
     player.stop();
     playing = 0;
   });
-
   document.querySelector("#button3").addEventListener('click', function() {
     player.connect(delay);
     delay.connect(delayAmount);
     delayAmount.connect(volume);
     volume.connect(context.destination);
   });
-
   document.querySelector("#button4").addEventListener('click', function() {
     player.disconnect(delay);
     delay.disconnect(delayAmount);
     delayAmount.disconnect(context.destination);
   });
-
   document.querySelector("#button5").addEventListener('click', function() {
     player.connect(filter);
     filter.connect(delayAmount);
     delayAmount.connect(volume)
     volume.connect(context.destination);
   });
-
   document.querySelector("#button6").addEventListener('click', function() {
     player.disconnect(filter);
     filter.disconnect(delayAmount);
     delayAmount.disconnect(context.destination);
   });
-
 // Method 1 
-
   function loadSound(soundfile) {
   var request = new XMLHttpRequest();
   request.open('GET', soundfile, true);
   request.responseType = 'arraybuffer';
-
   // Decode asynchronously
   request.onload = function() {
     context.decodeAudioData(request.response, function(buffer) {
@@ -170,7 +138,6 @@
   request.send();
   
 }
-
 function onError(){
   console.log("The file could not be loaded");
 }
@@ -179,4 +146,3 @@ function onError(){
 
 
 </body>
-</html>
