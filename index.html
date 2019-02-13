@@ -28,6 +28,30 @@
           });
         }
         </script>  
+  
+    <script>
+    // movue move effect for the filter
+        window.onload = function() {
+          this.addEventListener('touchmove', function(e) {
+          var x = e.clientX;
+          var y = e.clientY;
+          var width = window.innerWidth;
+          //adding height
+          var height = window.innerHeight;
+          //console.log(width);
+          var widthnor = (x/width); // 0-1 range
+          var heightnor = (y/height);
+          // console.log(widthnor*1500);
+          // console.log(heightnor*50);
+          //console.log(x, y);
+          if (playing == 1) {
+            //oscillator.frequency.value = x;
+            filter.frequency.value = widthnor*1500;
+            filter.Q.value = heightnor*50; 
+          }
+          });
+        }
+        </script>  
 
 </head>
 <body>
