@@ -5,18 +5,25 @@
   <title>Spaghetti Code Music Player</title>
   <link rel="icon" href="icon3.ico">
   <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
-  <script>
-    // movue move effect for the filter
+
+     <script>
+    // Trying out to make it work for touch
         window.onload = function() {
           this.addEventListener('mousemove', function(e) {
           var x = e.clientX;
           var y = e.clientY;
+          event.preventDefault(); // we don't want to scroll
+          var touch = event.touches[0];
+          var xt = touch.clientX;
+          var yt = touch.clientY;
           var width = window.innerWidth;
           //adding height
           var height = window.innerHeight;
           //console.log(width);
           var widthnor = (x/width); // 0-1 range
           var heightnor = (y/height);
+          var widthnortouch = (xt/width); // 0-1 range
+          var heightnortouch = (yt/height);
           // console.log(widthnor*1500);
           // console.log(heightnor*50);
           //console.log(x, y);
@@ -24,30 +31,8 @@
             //oscillator.frequency.value = x;
             filter.frequency.value = widthnor*1500;
             filter.Q.value = heightnor*50; 
-          }
-          });
-        }
-        </script>  
-  
-    <script>
-    // movue move effect for the filter
-        window.onload = function() {
-          this.addEventListener('touchmove', function(e) {
-          var x = e.clientX;
-          var y = e.clientY;
-          var width = window.innerWidth;
-          //adding height
-          var height = window.innerHeight;
-          //console.log(width);
-          var widthnor = (x/width); // 0-1 range
-          var heightnor = (y/height);
-          // console.log(widthnor*1500);
-          // console.log(heightnor*50);
-          //console.log(x, y);
-          if (playing == 1) {
-            //oscillator.frequency.value = x;
-            filter.frequency.value = widthnor*1500;
-            filter.Q.value = heightnor*50; 
+            filter.frequency.value = widthnortouch*1500;
+            filter.Q.value = heightnortouch*50; 
           }
           });
         }
@@ -56,7 +41,7 @@
 </head>
 <body>
     <div id="container">
-<h1>Spaghetti Code Music Player</h1>
+<h1>Spaghetti Code Music Player 2</h1>
 <div class="buttonLeftcontainer">
 <button type="button"  id="button1" class="buttonLeft">Play</button>
 <br />
